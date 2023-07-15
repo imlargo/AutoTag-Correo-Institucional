@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <script>
+        function Main() {
+            document.getElementById("Completado").textContent = "Por favor revise su correo, completado ✅";
+            google.script.run.addLabels();
+        }
+    </script>
+
+    <title>Auto Etiquetado de Correo :3</title>
+
+    <style>
+        :root {
+            --modo-color: #ffffff;
+            --border-curva: 7px;
+            --small-glow: 0 2px 5px rgb(255, 255, 255);
+        }
+
+        body {
+            background: #222222;
+            color: #ffffff;
+            font-family: "FreeMono", monospace;
+            margin: 2%;
+            font-size: 110%;
+        }
+
+        .Principal {
+            margin: 2%;
+        }
+
+        .Contenedor {
+            border-radius: var(--border-curva);
+            padding: 2%;
+            margin-bottom: 2%;
+        }
+
+        .border {
+            box-shadow: var(--small-glow);
+        }
+
+        .coolLine {
+            box-shadow: var(--small-glow);
+        }
+
+        .leerMas {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .leerMas hr {
+            float: left;
+            border: none;
+            height: 2px;
+            width: 45%;
+            background: rgb(255, 255, 255);
+            box-shadow: var(--small-glow);
+        }
+
+        .Boton {
+            flex-grow: 0;
+
+            font-family: "FreeMono", monospace;
+            background-color: #ae00ff;
+            font-weight: bolder;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            border-radius: var(--border-curva);
+            width: 50%;
+            padding: 10px;
+            transition: background-color 0.2s ease-in-out;
+
+            color: #ffffff;
+
+            box-shadow: 0 2px 4px rgba(255, 255, 255, 0.5);
+
+            border: 3px solid #ffffff;
+
+
+        }
+
+        .Boton:hover {
+            box-shadow: 0 0 .2rem #fff,
+                0 0 .2rem #fff,
+                0 0 2rem #bc13fe,
+                0 0 0.8rem #bc13fe,
+                0 0 2.8rem #bc13fe,
+                inset 0 0 1.3rem #bc13fe;
+            background-color: rgb(194, 102, 255);
+        }
+
+        .LineTittle {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+        }
+
+        .LineTittle hr {
+            float: left;
+            border: none;
+            height: 2px;
+            width: 35%;
+            background: rgb(255, 255, 255);
+            box-shadow: var(--small-glow);
+        }
+
+        .LineTittle h1 {
+            flex-grow: 0;
+        }
+
+        .Cajon {
+            display: inline;
+            padding: 2%;
+            margin: 1%;
+            border-radius: var(--border-curva);
+            border-color: rgb(255, 255, 255);
+            border: 2px solid #ffffff;
+            display: inline-block;
+            width: 40%;
+            box-shadow: var(--small-glow);
+            text-align: justify;
+        }
+
+        .soft_list {
+            list-style: none;
+            padding: 0;
+        }
+
+        .soft_list li {
+            
+            display: block;
+            align-items: center;
+            justify-content: space-between;
+            padding: 10px;
+            background-color: #e5aeff;
+            margin: 1%;
+            color: #ffffff;
+            border-radius: var(--border-curva);
+            background: rgba(139, 139, 139, 0.651);
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+            backdrop-filter: blur(6.1px);
+            -webkit-backdrop-filter: blur(6.1px);
+        }
+
+        .neon {
+            border: 2px solid #fff;
+            border-radius: var(--border-curva);
+            box-shadow: 0 0 .2rem #fff,
+                0 0 .2rem #fff,
+                0 0 2rem #bc13fe,
+                0 0 0.8rem #bc13fe,
+                0 0 2.8rem #bc13fe,
+                inset 0 0 1.3rem #bc13fe;
+        }
+
+        .Navegacion {
+            margin: 2%;
+        }
+
+        .Navegacion nav ul {
+            list-style-type: none;
+        }
+
+        .Navegacion ul li {
+            float: right;
+            display: block;
+            text-align: center;
+            margin-right: 20px;
+            padding: 10px 20px;
+            border: 0;
+            border: 2px solid #ffffff;
+            border-radius: var(--border-curva);
+            box-shadow: 0 2px 4px rgba(255, 255, 255, 0.5);
+            border: 3px solid #ffffff;
+            border-radius: var(--border-curva);
+            box-shadow: 0 0 .2rem #ffffff,
+                0 0 .2rem #ffffff,
+                0 0 2rem #d23fff,
+                0 0 0.8rem #c531ff,
+                0 0 2.8rem #cd50ff,
+                inset 0 0 1.3rem #d15dff;
+        }
+
+        .Navegacion nav span {
+            font-weight: bolder;
+            font-size: 225%;
+            display: inline-block;
+        }
+
+        .Navegacion li a {
+            color: #ffffff;
+            font-weight: bold;
+            text-decoration: none
+        }
+
+        .Navegacion ul li:hover {
+            box-shadow: 0 0 .2rem #fff,
+                0 0 .2rem #fff,
+                0 0 2rem #bc13fe,
+                0 0 0.8rem #bc13fe,
+                0 0 2.8rem #bc13fe,
+                inset 0 0 1.3rem #bc13fe;
+            background-color: rgb(194, 102, 255);
+        }
+
+        footer {
+            border: 0;
+            border-radius: var(--border-curva);
+            background-color: rgb(255, 255, 255);
+            text-align: center;
+            padding: 1%;
+            box-shadow:
+                0 0 20px #b04fff,
+                /* Sombra exterior */
+                inset 60px 0 120px #f0f,
+                /* left magenta */
+                inset -80px 0 120px #0ff;
+        }
+
+        footer p {
+            font-weight: bolder;
+            color: black;
+            font-size: 115%;
+            margin: 10px;
+        }
+    </style>
+
+</head>
+
+
+<body>
+    <header class="Navegacion">
+        <nav>
+            <ul>
+                <span>im largo</span>
+                <li><a target="_blank" href="https://imlargo.github.io/Index.html">Pagina Web</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <section class="Principal">
+        <section class="Contenedor ">
+
+            <div class="LineTittle">
+                <hr>
+                <h1>Autoetiquetador de Correo</h1>
+                <hr>
+            </div>
+
+            <br>
+            <p style="font-weight: bolder; font-size: 115%;">Creado por Juan Carlos Largo, automaticamente genera
+                etiquetas y crea filtros para los correos de la
+                Universidad.</p>
+            <br>
+
+            <section class="Cajon">
+                <p style="font-weight: bolder; font-size: 110%;">Las siguientes etiquetas se añadiran al correo:</p>
+                <hr class="coolLine">
+
+                <ul class="soft_list">
+                    <p style="font-weight: bold;">Institucional</p>
+                    <li>Vicerrectoria</li>
+                    <li>Secretaria de Sede</li>
+                    <li>Representacion Estudiantil</li>
+
+                    <p style="font-weight: bold;">Otros</p>
+                    <li>Post Master</li>
+                    <li>Periodico UNAL</li>
+                    <li>DINARA</li>
+                    <li>Bienestar/Cultura</li>
+                    <li>Direccion Academica</li>
+                    <li>Direccion de Relaciones Exteriores</li>
+                    <li>Educacion Continua</li>
+                    
+
+                    <p style="font-weight: bold;">Informa Facultades</p>
+                    <li>Facultad Minas</li>
+                    <li>Facultad Ciencias</li>
+                    <li>Facultad Artes y Arquitectura</li>
+                    <li>Facultad Humanas</li>
+
+                    <p style="font-weight: bold;">Proximamente mas, aun esta en desarrollo :)...</p>
+                </ul>
+            </section>
+
+
+            <section class="Cajon">
+                <p style="font-weight: bolder; font-size: 110%;">Agregar Etiquetas y Correos</p>
+                <hr class="coolLine">
+
+                <p>Al hacer clic en el siguiente botón, se agregaran a su correo institucional las etiquetas, ademas se
+                    creara automaticamente un filtro y todos los correos que cumplan las condiciones seran etiquetados
+                    automaticamente.<br><br>(Sin intervencion, la Aplicacion solo crea los filtros y gmail
+                    automaticamente
+                    hace todo)</p>
+
+                <p style="font-weight: bold;">Debes conceder permisos para que funcione, es seguro.</p>
+
+                <div class="leerMas">
+                    <hr>
+                    <button class="Boton" onclick="Main()">Ejecutar</button>
+                </div>
+
+                <p id="Completado" style="font-weight: bold;">...</p>
+
+                <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+            </section>
+
+
+        </section>
+
+    </section>
+
+
+    <footer>
+        <p>Juan Carlos Largo. | @im largo</p>
+    </footer>
+</body>
+
+</html>

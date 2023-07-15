@@ -1,0 +1,22 @@
+{
+    "timeZone": "America/Bogota",
+    "dependencies": {
+      "enabledAdvancedServices": [
+        {
+          "userSymbol": "Gmail",
+          "version": "v1",
+          "serviceId": "gmail"
+        }
+      ]
+    },
+    "exceptionLogging": "STACKDRIVER",
+    "runtimeVersion": "V8",
+    "webapp": {
+      "executeAs": "USER_ACCESSING",
+      "access": "DOMAIN"
+    },
+    "oauthScopes": [
+      "https://www.googleapis.com/auth/gmail.labels",
+      "https://www.googleapis.com/auth/gmail.settings.basic"
+    ]
+  }
