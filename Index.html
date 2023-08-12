@@ -7,9 +7,49 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <script>
+
         function Main() {
-            document.getElementById("Completado").textContent = "Por favor revise su correo, completado ✅";
-            google.script.run.addLabels();
+            document.getElementById("Completado").textContent = "Por favor revise su correo, completado (puede demorar hasta un minuto en verse los cambios)✅";
+            google.script.run.addLabels(allLabels);
+        }
+
+        let allLabels;
+        function updatePage() {
+            const labelsList = document.getElementById("contendorLabels");
+            labelsList.innerHTML = "";
+
+            for (const label in allLabels) {
+                const titulo = document.createElement("p");
+                titulo.textContent = label
+                titulo.style.fontWeight = "bold";
+                labelsList.appendChild(titulo);
+                for (const subLabel in allLabels[label]) {
+                    const listItem = document.createElement("li");
+                    listItem.textContent = subLabel;
+                    labelsList.appendChild(listItem);
+                }
+            }
+            const final = document.createElement("p");
+            final.style.fontWeight = "bold";
+            final.textContent = "Próximamente más, ¡aún está en desarrollo! :)...";
+            labelsList.appendChild(final);
+        }
+
+
+        document.addEventListener("DOMContentLoaded", () => {
+            function getData(data) {
+                allLabels = data
+                updatePage();
+            }
+            google.script.run.withSuccessHandler(getData).getData();
+        });
+
+
+        function addTag() {
+            const name = document.getElementById("tagName").value;
+            const mails = ((document.getElementById("mails").value).toLowerCase().replaceAll(" ", "")).split(",");
+            allLabels["Semestre 2023-2S"][name] = mails
+            updatePage();
         }
     </script>
 
@@ -34,11 +74,7 @@
             margin: 2%;
         }
 
-        .Contenedor {
-            border-radius: var(--border-curva);
-            padding: 2%;
-            margin-bottom: 2%;
-        }
+
 
         .border {
             box-shadow: var(--small-glow);
@@ -63,37 +99,55 @@
             box-shadow: var(--small-glow);
         }
 
-        .Boton {
-            flex-grow: 0;
-
+        .add {
             font-family: "FreeMono", monospace;
-            background-color: #ae00ff;
-            font-weight: bolder;
-            font-size: 16px;
+            flex-grow: 0;
+            font-size: 15px;
+            background: none;
             font-weight: bold;
             cursor: pointer;
             border-radius: var(--border-curva);
-            width: 50%;
+            width: 25%;
             padding: 10px;
             transition: background-color 0.2s ease-in-out;
-
             color: #ffffff;
-
-            box-shadow: 0 2px 4px rgba(255, 255, 255, 0.5);
-
+            box-shadow: 0 2px 4px rgba(245, 131, 255, 0.5);
             border: 3px solid #ffffff;
+        }
 
+        .add:hover {
+            box-shadow: 0 0 .2rem #fff,
+                0 0 .1rem #fff,
+                0 0 1rem #d77bfc,
+                0 0 0.2rem #dd87ff,
+                0 0 1.8rem #ff85ef,
+                inset 0 0 0.3rem #ff9cde;
+        }
 
+        .Boton {
+            flex-grow: 0;
+            font-family: "FreeMono", monospace;
+            background: none;
+            font-weight: bolder;
+            font-size: 15px;
+            font-weight: bold;
+            cursor: pointer;
+            border-radius: var(--border-curva);
+            width: 40%;
+            padding: 10px;
+            transition: background-color 0.2s ease-in-out;
+            color: #ffffff;
+            box-shadow: 0 2px 4px rgba(255, 255, 255, 0.5);
+            border: 3px solid #ffffff;
         }
 
         .Boton:hover {
             box-shadow: 0 0 .2rem #fff,
-                0 0 .2rem #fff,
-                0 0 2rem #bc13fe,
-                0 0 0.8rem #bc13fe,
-                0 0 2.8rem #bc13fe,
-                inset 0 0 1.3rem #bc13fe;
-            background-color: rgb(194, 102, 255);
+                0 0 .1rem #fff,
+                0 0 1rem #bc13fe,
+                0 0 0.2rem #bc13fe,
+                0 0 1.8rem #bc13fe,
+                inset 0 0 0.3rem #bc13fe;
         }
 
         .LineTittle {
@@ -116,17 +170,24 @@
             flex-grow: 0;
         }
 
+
+        .columnas {
+            display: flex;
+
+        }
+
         .Cajon {
-            display: inline;
+
             padding: 2%;
             margin: 1%;
             border-radius: var(--border-curva);
-            border-color: rgb(255, 255, 255);
             border: 2px solid #ffffff;
-            display: inline-block;
-            width: 40%;
+            border-color: rgb(255, 255, 255);
             box-shadow: var(--small-glow);
             text-align: justify;
+
+            flex: 1;
+
         }
 
         .soft_list {
@@ -135,7 +196,6 @@
         }
 
         .soft_list li {
-            
             display: block;
             align-items: center;
             justify-content: space-between;
@@ -231,6 +291,147 @@
             font-size: 115%;
             margin: 10px;
         }
+
+
+
+
+        .container {
+            display: block;
+            padding: 10px 10px 10px;
+            font-family: "FreeMono", monospace;
+        }
+
+
+        /* form starting stylings ------------------------------- */
+        .group {
+            position: relative;
+            margin-bottom: 45px;
+
+        }
+
+        input {
+
+            padding: 10px 10px 10px 5px;
+            display: block;
+            font-size: 19px;
+            width: 100%;
+            border: none;
+            background: none;
+            border-bottom: 1px solid #ffbaf9;
+            color: #ffffff;
+        }
+
+        input:focus {
+            outline: none;
+        }
+
+        /* LABEL ======================================= */
+        label {
+            color: #ffffff;
+            font-size: 19px;
+            font-weight: normal;
+            position: absolute;
+            pointer-events: none;
+            left: 5px;
+            top: 10px;
+            transition: 0.2s ease all;
+            -moz-transition: 0.2s ease all;
+            -webkit-transition: 0.2s ease all;
+        }
+
+        /* active state */
+        input:focus~label,
+        input:valid~label {
+            top: -20px;
+            font-size: 14px;
+            color: #ffffff;
+        }
+
+        /* BOTTOM BARS ================================= */
+        .bar {
+            position: relative;
+            display: block;
+            width: 300px;
+        }
+
+        .bar:before,
+        .bar:after {
+            content: '';
+            height: 2px;
+            width: 0;
+            bottom: 1px;
+            position: absolute;
+            background: #8746b3;
+            transition: 0.2s ease all;
+            -moz-transition: 0.2s ease all;
+            -webkit-transition: 0.2s ease all;
+        }
+
+        .bar:before {
+            left: 50%;
+        }
+
+        .bar:after {
+            right: 50%;
+        }
+
+        /* active state */
+        input:focus~.bar:before,
+        input:focus~.bar:after {
+            width: 50%;
+        }
+
+        /* HIGHLIGHTER ================================== */
+        .highlight {
+            position: absolute;
+            height: 60%;
+            width: 100px;
+            top: 25%;
+            left: 0;
+            pointer-events: none;
+            opacity: 0.5;
+        }
+
+        /* active state */
+        input:focus~.highlight {
+            -webkit-animation: inputHighlighter 0.3s ease;
+            -moz-animation: inputHighlighter 0.3s ease;
+            animation: inputHighlighter 0.3s ease;
+        }
+
+        /* ANIMATIONS ================ */
+        @-webkit-keyframes inputHighlighter {
+            from {
+                background: #f8a5ff;
+            }
+
+            to {
+                width: 0;
+                background: transparent;
+            }
+        }
+
+        @-moz-keyframes inputHighlighter {
+            from {
+                background: #f8a5ff;
+            }
+
+            to {
+                width: 0;
+                background: transparent;
+            }
+        }
+
+        @keyframes inputHighlighter {
+            from {
+                background: #f8a5ff;
+            }
+
+            to {
+                width: 0;
+                background: transparent;
+            }
+        }
     </style>
 
 </head>
@@ -261,64 +462,64 @@
                 Universidad.</p>
             <br>
 
-            <section class="Cajon">
-                <p style="font-weight: bolder; font-size: 110%;">Las siguientes etiquetas se añadiran al correo:</p>
-                <hr class="coolLine">
 
-                <ul class="soft_list">
-                    <p style="font-weight: bold;">Institucional</p>
-                    <li>Vicerrectoria</li>
-                    <li>Secretaria de Sede</li>
-                    <li>Representacion Estudiantil</li>
+            <div class="columnas">
+                <section class="Cajon">
+                    <p style="font-weight: bolder; font-size: 110%;">Las siguientes etiquetas se añadiran al correo:</p>
+                    <hr class="coolLine">
+                    <ul class="soft_list" id="contendorLabels"></ul>
+                </section>
 
-                    <p style="font-weight: bold;">Otros</p>
-                    <li>Post Master</li>
-                    <li>Periodico UNAL</li>
-                    <li>DINARA</li>
-                    <li>Bienestar/Cultura</li>
-                    <li>Direccion Academica</li>
-                    <li>Direccion de Relaciones Exteriores</li>
-                    <li>Educacion Continua</li>
-                    
+                <section class="Cajon">
+                    <p style="font-weight: bolder; font-size: 110%;">Agregar Etiquetas y Correos</p>
+                    <hr class="coolLine">
+                    <p>
+                        Al hacer clic en el siguiente botón, se agregaran a su correo institucional las etiquetas,
+                        ademas se creara automaticamente un filtro y todos los correos que cumplan las condiciones seran
+                        etiquetados automaticamente.
+                        <br><br>(Sin intervencion, la Aplicacion solo crea los filtros y gmail automaticamente hace
+                        todo)
+                    </p>
 
-                    <p style="font-weight: bold;">Informa Facultades</p>
-                    <li>Facultad Minas</li>
-                    <li>Facultad Ciencias</li>
-                    <li>Facultad Artes y Arquitectura</li>
-                    <li>Facultad Humanas</li>
+                    <div class="leerMas">
+                        <hr>
+                        <button class="Boton" onclick="Main()">Ejecutar</button>
+                    </div>
 
-                    <p style="font-weight: bold;">Proximamente mas, aun esta en desarrollo :)...</p>
-                </ul>
-            </section>
+                    <p id="Completado" style="font-weight: bold;">...</p>
 
-
-            <section class="Cajon">
-                <p style="font-weight: bolder; font-size: 110%;">Agregar Etiquetas y Correos</p>
-                <hr class="coolLine">
-
-                <p>Al hacer clic en el siguiente botón, se agregaran a su correo institucional las etiquetas, ademas se
-                    creara automaticamente un filtro y todos los correos que cumplan las condiciones seran etiquetados
-                    automaticamente.<br><br>(Sin intervencion, la Aplicacion solo crea los filtros y gmail
-                    automaticamente
-                    hace todo)</p>
-
-                <p style="font-weight: bold;">Debes conceder permisos para que funcione, es seguro.</p>
-
-                <div class="leerMas">
                     <hr>
-                    <button class="Boton" onclick="Main()">Ejecutar</button>
-                </div>
 
-                <p id="Completado" style="font-weight: bold;">...</p>
-
-                <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
-            </section>
+                    <p style="font-weight: bolder; font-size: 110%;">Agregar etiquetas personalizadas de materias:</p>
+                    <br>
 
 
+                    <div class="container">
+
+                        <form>
+                            <div class="group">
+                                <input type="text" id="tagName">
+                                <span class="highlight"></span>
+                                <span class="bar"></span>
+                                <label>Nombre Etiqueta (Nombre Materia)</label>
+                            </div>
+
+                            <div class="group">
+                                <input type="text" id="mails">
+                                <span class="highlight"></span>
+                                <span class="bar"></span>
+                                <label>Correos (Separar con coma si son mas de uno)</label>
+                            </div>
+                        </form>
+
+                        <button class="add" onclick="addTag()">Agregar</button>
+                    </div>
+                </section>
+
+            </div>
         </section>
 
     </section>
-
 
     <footer>
         <p>Juan Carlos Largo. | @im largo</p>
