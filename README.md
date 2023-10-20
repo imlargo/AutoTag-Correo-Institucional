@@ -2,9 +2,7 @@
 
 Aplicación web desarrollada con Google Apps Script, automatiza la asignación de etiquetas para el correo institucional de la Universidad en Gmail.
 
-Implementando:
-- Interfaz web sencilla
-- Integracion con las Apis de google
+Se desarrolló como un proyecto sencillo, utilizando Google Apps Script, una plataforma de automatización para aplicaciones de Google que permite la conexion con APis. La interfaz de la aplicacion web se creó con HTML, CSS y JavaScript, y se conecta con Gmail a través de la API proporcionada por Google Apps Script.
 
 ### Tools used
 These were some of the tools I used to build this project
