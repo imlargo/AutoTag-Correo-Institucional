@@ -1,6 +1,6 @@
 # UNauto-tag
 
-_Aplicación web desarrollada con Google Apps Script, automatiza la asignación de etiquetas para el correo institucional de la Universidad Nacional de Colombia en Gmail._
+> _Aplicación web desarrollada con Google Apps Script, automatiza la asignación de etiquetas para el correo institucional de la Universidad Nacional de Colombia en Gmail._
 
 Se desarrolló como un proyecto sencillo, utilizando Google Apps Script, una plataforma de automatización para aplicaciones de Google que permite la conexion con APis. La interfaz de la aplicacion web se creó con HTML, CSS y JavaScript, y se conecta con Gmail a través de la API proporcionada por Google Apps Script.
 
