@@ -1,5 +1,7 @@
 //Creado por @im largo
 
+//Realmente es archivo.gs en google apps script
+
 const allLabels = {
     "Semestre 2023-2S": { },
 
